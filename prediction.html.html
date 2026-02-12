@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Rain Prediction - Professional Weather Forecasting</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00c6ff;
+            --secondary: #4facfe;
+            --accent: #00f2fe;
+            --dark: #0f0c29;
+            --light: #ffffff;
+            --success: #00ff9d;
+            --warning: #ffcc00;
+            --danger: #ff416c;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--dark), #302b63, #24243e);
+            background-size: 400% 400%;
+            animation: gradientBG 25s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            color: var(--light);
+            position: relative;
+            margin: 0;
+            padding: 0;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        header {
+            background: rgba(15, 12, 41, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 20px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        main {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 30px;
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(100, 200, 255, 0.7);
+            background: linear-gradient(to right, var(--secondary), var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+            letter-spacing: 2px;
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 10px rgba(100, 200, 255, 0.5), 0 0 20px rgba(100, 200, 255, 0.3); }
+            100% { text-shadow: 0 0 20px rgba(100, 200, 255, 0.8), 0 0 30px rgba(100, 200, 255, 0.6); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.7;
+        }
+
+        .content-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .info-card {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .info-card:nth-child(1) { animation-delay: 0.1s; }
+        .info-card:nth-child(2) { animation-delay: 0.3s; }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 242, 254, 0.4);
+        }
+
+        .info-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .info-card p {
+            line-height: 1.8;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-card li {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .info-card li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .form-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .form-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--accent);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .input-box {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .input-box:hover {
+            transform: translateY(-2px);
+        }
+
+        .input-box label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--light);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .input-box input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+            transform: scale(1.02);
+        }
+
+        .predict-btn {
+            width: 100%;
+            padding: 18px;
+            border-radius: 15px;
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 242, 254, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .predict-btn::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .predict-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .predict-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 242, 254, 0.6);
+        }
+
+        .predict-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .predict-btn.loading {
+            background: linear-gradient(45deg, #666, #888);
+            cursor: not-allowed;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .result-container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            margin-top: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-container.glow {
+            animation: glowPulse 2s ease;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(0, 242, 254, 0.6), 0 0 60px rgba(0, 242, 254, 0.4); }
+        }
+
+        .prediction-badge {
+            display: inline-block;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            animation: bounceIn 0.8s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .prediction-badge.yes {
+            background: linear-gradient(135deg, #ff6b6b, #ff416c);
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .prediction-badge.no {
+            background: linear-gradient(135deg, #00ff9d, #00b894);
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .result-title {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+            font-weight: 600;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .probability-meter {
+            margin: 30px auto;
+            max-width: 500px;
+        }
+
+        .probability-label {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .meter-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            height: 40px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .meter-fill {
+            height: 100%;
+            border-radius: 50px;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            animation: fillAnimation 1.5s ease-out;
+        }
+
+        @keyframes fillAnimation {
+            from { width: 0 !important; }
+        }
+
+        .meter-fill::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: meterShine 2s infinite;
+        }
+
+        @keyframes meterShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .meter-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .result-content {
+            font-size: 1.3rem;
+            margin-top: 20px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .weather-tips {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            margin-top: 30px;
+            animation: slideIn 0.6s ease;
+        }
+
+        .tips-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .tips-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .tip-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            animation: tipSlide 0.5s ease forwards;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        @keyframes tipSlide {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .tip-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .tip-icon {
+            font-size: 1.5rem;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: particleFloat 15s infinite;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        footer {
+            background: rgba(15, 12, 41, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            color: var(--light);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .prediction-badge {
+                font-size: 2rem;
+                padding: 15px 30px;
+            }
+
+            .result-title {
+                font-size: 1.5rem;
+            }
+
+            .tips-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .sunny {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.2));
+        }
+
+        .cloudy {
+            background: linear-gradient(135deg, rgba(176, 196, 222, 0.2), rgba(135, 206, 250, 0.2));
+        }
+
+        .rainy {
+            background: linear-gradient(135deg, rgba(70, 130, 180, 0.2), rgba(100, 149, 237, 0.2));
+        }
+
+        .error {
+            background: linear-gradient(135deg, rgba(255, 65, 108, 0.2), rgba(255, 75, 43, 0.2));
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">🌦️</div>
+                <div class="logo-text">Weather Predictor</div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <h1 class="hero-title">Smart Rain Prediction System</h1>
+            <p class="hero-subtitle">
+                Advanced AI-powered weather forecasting that provides accurate rain predictions based on real-time atmospheric conditions
+            </p>
+        </section>
+
+        <section class="form-section">
+            <h2>🌡️ Enter Weather Data</h2>
+            <form id="prediction-form" onsubmit="return false;">
+                <div class="form-grid">
+                    <div class="input-box">
+                        <label for="temperature">
+                            <i class="fas fa-temperature-high"></i> Temperature (°C)
+                        </label>
+                        <input type="number" id="temperature" name="temperature" step="0.1" required placeholder="e.g., 25.5">
+                    </div>
+
+                    <div class="input-box">
+                        <label for="humidity">
+                            <i class="fas fa-tint"></i> Humidity (%)
+                        </label>
+                        <input type="number" id="humidity" name="humidity" step="1" min="0" max="100" required placeholder="e.g., 75">
+                    </div>
+
+                    <div class="input-box">
+                        <label for="wind">
+                            <i class="fas fa-wind"></i> Wind Speed (km/h)
+                        </label>
+                        <input type="number" id="wind" name="wind" step="0.1" min="0" required placeholder="e.g., 15.5">
+                    </div>
+                </div>
+
+                <button type="button" class="predict-btn" onclick="predictRain()">
+                    <i class="fas fa-cloud-showers-heavy"></i> Predict Rainfall
+                </button>
+            </form>
+
+            <div id="result" class="result-container hidden"></div>
+            <div id="weather-tips" class="weather-tips hidden"></div>
+        </section>
+
+        <section class="content-section">
+            <div class="info-card">
+                <h3><i class="fas fa-brain"></i> AI-Powered Analysis</h3>
+                <p>Our sophisticated algorithm analyzes multiple weather parameters to provide accurate rainfall predictions.</p>
+                <ul>
+                    <li>Temperature analysis</li>
+                    <li>Humidity tracking</li>
+                    <li>Wind speed monitoring</li>
+                    <li>Real-time data processing</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-cloud-sun-rain"></i> Comprehensive Forecasting</h3>
+                <p>Get detailed weather insights including probability percentages and yes/no predictions.</p>
+                <ul>
+                    <li>Instant predictions</li>
+                    <li>Probability metrics</li>
+                    <li>Weather recommendations</li>
+                    <li>Visual indicators</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#"><i class="fas fa-home"></i> Home</a>
+                <a href="#"><i class="fas fa-info-circle"></i> About</a>
+                <a href="#"><i class="fas fa-envelope"></i> Contact</a>
+                <a href="#"><i class="fas fa-shield-alt"></i> Privacy</a>
+            </div>
+            <div class="social-links">
+                <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 Smart Rain Prediction System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+<script>
+    function createParticles() {
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 50;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+    }
+
+    function predictRain() {
+        const temp = parseFloat(document.getElementById('temperature').value);
+        const humidity = parseFloat(document.getElementById('humidity').value);
+        const wind = parseFloat(document.getElementById('wind').value);
+        
+        if (isNaN(temp) || isNaN(humidity) || isNaN(wind)) {
+            showResult("Please enter valid values for all fields!", "error");
+            return false;
+        }
+        
+        const predictBtn = document.querySelector('.predict-btn');
+        predictBtn.classList.add('loading');
+        predictBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+        
+        document.getElementById('result').classList.add('hidden');
+        document.getElementById('weather-tips').classList.add('hidden');
+        
+        setTimeout(() => {
+            predictBtn.classList.remove('loading');
+            predictBtn.innerHTML = '<i class="fas fa-cloud-showers-heavy"></i> Predict Rainfall';
+            
+            let prediction = "";
+            let weatherClass = "";
+            let tips = [];
+            let rainProbability = 0;
+            let willRain = false;
+            
+            // Temperature factor
+            if (temp < 10) rainProbability += 25;
+            else if (temp > 25) rainProbability -= 10;
+            
+            // Humidity factor (most important)
+            if (humidity > 80) rainProbability += 35;
+            else if (humidity < 40) rainProbability -= 15;
+            
+            // Wind factor
+            if (wind > 30) rainProbability += 15;
+            else if (wind < 10) rainProbability -= 10;
+            
+            // Clamp between 0 and 100
+            rainProbability = Math.max(0, Math.min(100, rainProbability));
+            
+            // Determine yes/no based on probability threshold
+            willRain = rainProbability >= 50;
+            
+            // Determine weather condition
+            if (rainProbability > 75) {
+                prediction = "Heavy Rain Expected";
+                weatherClass = "rainy";
+                tips = [
+                    {icon: "☂️", text: "Carry an umbrella or raincoat"},
+                    {icon: "👟", text: "Wear waterproof shoes"},
+                    {icon: "📱", text: "Keep electronic devices in a waterproof bag"},
+                    {icon: "🏠", text: "Plan indoor activities"}
+                ];
+            } else if (rainProbability > 50) {
+                prediction = "Light Rain Expected";
+                weatherClass = "cloudy";
+                tips = [
+                    {icon: "☂️", text: "Bring a light raincoat"},
+                    {icon: "📱", text: "Protect electronics from moisture"},
+                    {icon: "🚗", text: "Drive carefully on wet roads"},
+                    {icon: "☕", text: "Enjoy warm beverages indoors"}
+                ];
+            } else if (rainProbability > 30) {
+                prediction = "Cloudy with Possibility of Light Rain";
+                weatherClass = "cloudy";
+                tips = [
+                    {icon: "☂️", text: "Keep a small umbrella handy"},
+                    {icon: "🕶️", text: "Wear sunglasses for better visibility"},
+                    {icon: "💧", text: "Stay hydrated"},
+                    {icon: "📖", text: "Perfect day for reading"}
+                ];
+            } else {
+                prediction = "Clear Skies Ahead";
+                weatherClass = "sunny";
+                tips = [
+                    {icon: "🧴", text: "Apply sunscreen for UV protection"},
+                    {icon: "🥤", text: "Drink plenty of water"},
+                    {icon: "🏖️", text: "Enjoy outdoor activities"},
+                    {icon: "🌊", text: "Great for beach or park visit"}
+                ];
+            }
+            
+            // Show result with Yes/No prediction
+            showResult(prediction, weatherClass, rainProbability, willRain);
+            
+            // Show tips
+            showTips(tips);
+            
+            // Add glow effect to result
+            document.querySelector('.result-container').classList.add('glow');
+            setTimeout(() => {
+                document.querySelector('.result-container').classList.remove('glow');
+            }, 2000);
+            
+        }, 1500);
+        
+        return false;
+    }
+
+    function showResult(text, className, probability = null, willRain = null) {
+        const resultDiv = document.getElementById('result');
+        
+        let icon = "🌤️";
+        if (className === "rainy") icon = "🌧️";
+        else if (className === "cloudy") icon = "☁️";
+        else if (className === "sunny") icon = "☀️";
+        else if (className === "error") icon = "❗";
+        
+        let yesNoHTML = '';
+        if (willRain !== null) {
+            yesNoHTML = `
+                <div class="prediction-badge ${willRain ? 'yes' : 'no'}">
+                    ${willRain ? '🌧️ YES - Rain Expected' : '☀️ NO - No Rain'}
+                </div>
+            `;
+        }
+        
+        let meterColor = '';
+        if (probability !== null) {
+            if (probability > 75) meterColor = 'linear-gradient(90deg, #ff416c, #ff4b2b)';
+            else if (probability > 50) meterColor = 'linear-gradient(90deg, #f093fb, #f5576c)';
+            else if (probability > 30) meterColor = 'linear-gradient(90deg, #4facfe, #00f2fe)';
+            else meterColor = 'linear-gradient(90deg, #00ff9d, #00b894)';
+        }
+        
+        resultDiv.innerHTML = `
+            ${yesNoHTML}
+            <div class="result-title">${icon} ${text}</div>
+            ${probability !== null ? `
+                <div class="probability-meter">
+                    <div class="probability-label">Rain Probability</div>
+                    <div class="meter-container">
+                        <div class="meter-fill" style="width: ${probability}%; background: ${meterColor};">
+                        </div>
+                        <div class="meter-text">${probability}%</div>
+                    </div>
+                </div>
+            ` : ''}
+        `;
+        
+        resultDiv.className = 'result-container';
+        resultDiv.classList.add(className);
+        resultDiv.classList.remove('hidden');
+    }
+
+    function showTips(tips) {
+        const tipsDiv = document.getElementById('weather-tips');
+        tipsDiv.innerHTML = `
+            <div class="tips-title">💡 Weather Recommendations</div>
+            <div class="tips-content">
+                ${tips.map((tip, index) => `
+                    <div class="tip-item" style="animation-delay: ${index * 0.1}s">
+                        <span class="tip-icon">${tip.icon}</span>
+                        <span>${tip.text}</span>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        tipsDiv.classList.remove('hidden');
+    }
+
+    window.onload = function() {
+        createParticles();
+        
+        const predictBtn = document.querySelector('.predict-btn');
+        if (predictBtn) {
+            predictBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                predictRain();
+                return false;
+            });
+        }
+        
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.info-card, .form-section').forEach(section => {
+            section.style.opacity = 0;
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const cards = document.querySelectorAll('.info-card, .form-section, .input-box, .predict-btn, .result-container, .weather-tips');
+        
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    });
+</script>
+</body>
+</html>

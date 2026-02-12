@@ -1,0 +1,39 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+
+app = FastAPI()
+
+# ✅ CORS (IMPORTANT)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Request model
+class PredictionRequest(BaseModel):
+    temperature: float
+    humidity: float
+    wind_speed: float
+
+@app.get("/")
+def home():
+    return {"message": "Rain Prediction API Running"}
+
+@app.post("/predict_rain")
+def predict_rain(data: PredictionRequest):
+    # Simple logic (no ML error)
+    if data.humidity > 60 and data.temperature < 25:
+        rain = "Yes"
+        rainfall = 12.5
+    else:
+        rain = "No"
+        rainfall = 0.0
+
+    return {
+        "rain_prediction": rain,
+        "expected_rainfall_mm": rainfall
+    }
