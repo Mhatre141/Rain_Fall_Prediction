@@ -37,3 +37,17 @@ def predict_rain(data: PredictionRequest):
         "rain_prediction": rain,
         "expected_rainfall_mm": rainfall
     }
+
+
+import os
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "App is running 🚀"
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 10000))  # IMPORTANT
+    app.run(host="0.0.0.0", port=port)         # IMPORTANT
